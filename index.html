@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ежедневник Боднарчука | Органайзер задач</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Декоративные элементы -->
+    <div class="decoration corner-top-left"></div>
+    <div class="decoration corner-top-right"></div>
+    <div class="decoration corner-bottom-left"></div>
+    <div class="decoration corner-bottom-right"></div>
+    
+    <div class="container">
+        <!-- Шапка приложения -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-book-open"></i>
+                    Ежедневник Боднарчука
+                </h1>
+                <p class="app-subtitle">Организуйте свои задачи</p>
+                <div class="author-signature">
+                    <span>Разработано Боднарчуком Д.И.</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Форма добавления задачи -->
+            <section class="add-task-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-circle"></i> Добавить новую задачу</h2>
+                    <p class="section-subtitle">Заполните форму ниже, чтобы добавить задачу в ежедневник</p>
+                </div>
+                
+                <form id="task-form" class="task-form">
+                    <div class="form-group">
+                        <label for="task-title">
+                            <i class="fas fa-heading"></i> Название задачи *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="task-title" 
+                            name="task-title" 
+                            placeholder="Например: Подготовить отчет" 
+                            required
+                        >
+                        <div class="input-hint">Обязательное поле для заполнения</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description">
+                            <i class="fas fa-align-left"></i> Описание задачи
+                        </label>
+                        <textarea 
+                            id="task-description" 
+                            name="task-description" 
+                            placeholder="Детали и примечания к задаче (необязательно)"
+                            rows="4"
+                        ></textarea>
+                        <div class="input-hint">Можно оставить пустым</div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Добавить задачу
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="clear-form">
+                            <i class="fas fa-broom"></i> Очистить форму
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Список задач -->
+            <section class="tasks-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-tasks"></i> Мои задачи</h2>
+                    <div class="tasks-counter">
+                        <span id="tasks-count">0</span> задач в ежедневнике
+                    </div>
+                </div>
+                
+                <div class="tasks-filter">
+                    <button class="filter-btn active" data-filter="all">Все задачи</button>
+                    <button class="filter-btn" data-filter="recent">Сегодняшние</button>
+                    <button class="filter-btn" data-filter="important">Важные</button>
+                </div>
+                
+                <div id="tasks-container" class="tasks-container">
+                    <!-- Задачи будут добавляться сюда динамически -->
+                    <div class="no-tasks-message">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Пока нет задач</h3>
+                        <p>Добавьте первую задачу, используя форму выше. Ваш ежедневник готов к работе!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Футер -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Ежедневник Боднарчука</h3>
+                    <p>© 2025 Проект по адаптивной верстке.</p>
+                </div>
+                <div class="footer-info">
+                    <p>Создано с использованием технологий HTML5, CSS3, Vanilla JS</p>
+                    <p class="signature">Автор: <strong>Боднарчук Данил</strong></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Шаблон задачи для клонирования -->
+    <template id="task-template">
+        <div class="task-card">
+            <div class="task-card-header">
+                <div class="task-meta">
+                    <span class="task-date">Сегодня</span>
+                    <span class="task-id">#<span class="id-number">1</span></span>
+                </div>
+                <button class="task-delete-btn" title="Удалить задачу">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="task-card-body">
+                <h3 class="task-title">Название задачи</h3>
+                <p class="task-description">Описание задачи будет здесь...</p>
+            </div>
+            <div class="task-card-footer">
+                <div class="task-actions">
+                    <button class="task-important-btn" title="Отметить как важную">
+                        <i class="far fa-star"></i>
+                    </button>
+                    <span class="task-status">Активная</span>
+                </div>
+                <div class="task-brand">
+                    <span class="brand-mark">Боднарчук</span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
